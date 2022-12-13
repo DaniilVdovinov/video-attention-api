@@ -3,6 +3,7 @@ import glob
 import sys
 import argparse
 import cv2
+import shlex
 
 from tqdm import tqdm
 import matplotlib.pyplot as plt
@@ -278,7 +279,7 @@ class VideoGenerator:
         return model
 
 
-def parse_args():
+def parse_args(args_str=''):
     parser = argparse.ArgumentParser("Generation self-attention video")
     parser.add_argument(
         "--arch",
@@ -352,7 +353,10 @@ def parse_args():
         help="Format of generated video (mp4 or avi).",
     )
 
-    return parser.parse_args()
+    if args_str != '':
+        return parser.parse_args(shlex.split(args_str))
+    else:
+        return parser.parse_args()
 
 
 if __name__ == "__main__":
